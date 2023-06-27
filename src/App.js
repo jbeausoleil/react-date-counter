@@ -1,6 +1,6 @@
 import "./index.css";
 import { useState } from "react";
-import Button from 'react-bootstrap/Button';
+import button from 'react-bootstrap/button';
 
 export default function App() {
   return (
@@ -11,8 +11,8 @@ export default function App() {
 }
 
 function Counter() {
+  const [step, setStep] = useState(0);
   const [count, setCount] = useState(0);
-  const [step, setStep] = useState(1);
 
   const date = new Date() // Today's date
   const calculatedDate = new Date(date.setDate(date.getDate() + count)).toDateString()
@@ -29,16 +29,15 @@ function Counter() {
   return (
     <>
       <div>
-        <button onClick={handlePreviousStep}>-</button>
-        <span>Step: {step}</span>
-        <button onClick={() => setStep((s) => s + 1)}>+</button>
+        <input type="range" min="0" max="10" value={step} onChange={e=> setStep(Number(e.target.value))}/>
+        <span>{step}</span>
       </div>
       <div>
-        <Button onClick={() => setCount((c) => c - step)}>-</Button>
+        <button onClick={() => setCount((c) => c - step)}>-</button>
         <span>Count: {count}</span>
-        <Button onClick={() => setCount((c) => c + step)}>+</Button>
+        <button onClick={() => setCount((c) => c + step)}>+</button>
       </div>
-      <button onClick={handleReset}>Reset</button>
+      <button className="reset" onClick={handleReset}>Reset</button>
       <p>
         <span>
           {count === 0
